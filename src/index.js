@@ -23,6 +23,6 @@ app.use(bodyParser.json());
 
 
 app.use('/', routes);
-app.listen(80, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('Server runing...');
 });
