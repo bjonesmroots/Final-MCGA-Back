@@ -23,6 +23,6 @@ app.use(bodyParser.json());
 
 
 app.use('/', routes);
-app.listen(3001, () => {
+app.listen(80, () => {
   console.log('Server runing...');
 });
