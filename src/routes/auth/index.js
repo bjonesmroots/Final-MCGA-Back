@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const UsuarioSchema = require('../../schemas/usuarios')
+const crypto = require('crypto')
 
 router.route('/login')
   .post((req, res) => {
@@ -10,7 +11,8 @@ router.route('/login')
       if (!req.body.password || typeof req.body.password !== 'string') {
         return res.status(400).send({message: 'Password invalido'});
       }
-    UsuarioSchema.findOne({email:req.body.email, password: req.body.password}).then((usuario) => {
+    const md5_password = crypto.createHash('md5').update(req.body.password).digest("hex");
+    UsuarioSchema.findOne({email:req.body.email, password: md5_password}).then((usuario) => {
         if (usuario) {
             res.status(200).send(usuario);
         } else {
